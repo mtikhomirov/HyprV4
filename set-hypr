@@ -39,7 +39,9 @@ nvidia_stage=(
 
 #the main packages
 install_stage=(
-    kitty 
+    alacritty
+    curl
+    wget
     mako 
     waybar
     swww 
@@ -73,6 +75,9 @@ install_stage=(
     xfce4-settings
     nwg-look-bin
     sddm
+    neovim
+    ripgrep
+    g810-led-git
 )
 
 for str in ${myArray[@]}; do
@@ -287,7 +292,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
 
     # Setup each appliaction
     # check for existing config folders and backup 
-    for DIR in hypr kitty mako swaylock waybar wlogout wofi 
+    for DIR in hypr alacritty mako swaylock waybar wlogout wofi 
     do 
         DIRPATH=~/.config/$DIR
         if [ -d "$DIRPATH" ]; then 
@@ -300,10 +305,20 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
         mkdir -p $DIRPATH &>> $INSTLOG
     done
 
+    # install vim-plug
+    echo -e "$CNT - install vim-plug..."
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
     # link up the config files
     echo -e "$CNT - Setting up the new config..." 
     cp ~/.config/HyprV/hypr/* ~/.config/hypr/
-    ln -sf ~/.config/HyprV/kitty/kitty.conf ~/.config/kitty/kitty.conf
+    # ln -sf ~/.config/HyprV/kitty/kitty.conf ~/.config/kitty/kitty.conf
+    ln -sf ~/.config/HyprV/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+    ln -sf ~/.config/HyprV/alacritty/themes/ayu_dark.toml ~/.config/alacritty/themes/ayu_dark.toml
+    ln -sf ~/.config/HyprV/alacritty/themes/doom_one.toml ~/.config/alacritty/themes/doom_one.toml
+    ln -sf ~/.config/HyprV/alacritty/themes/drakula.toml ~/.config/alacritty/themes/drakula.toml
+    ln -sf ~/.config/HyprV/nvim/nvim.init ~/.config/nvim/nvim.init
     ln -sf ~/.config/HyprV/mako/conf/config-dark ~/.config/mako/config
     ln -sf ~/.config/HyprV/swaylock/config ~/.config/swaylock/config
     ln -sf ~/.config/HyprV/waybar/conf/v4-config.jsonc ~/.config/waybar/config.jsonc
@@ -311,6 +326,9 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     ln -sf ~/.config/HyprV/wlogout/layout ~/.config/wlogout/layout
     ln -sf ~/.config/HyprV/wofi/config ~/.config/wofi/config
     ln -sf ~/.config/HyprV/wofi/style/v4-style-dark.css ~/.config/wofi/style.css
+
+    # Copy Logitech keyboard profile
+    sudo cp -R HyprV/LogitechKB/profile/group_keys /etc/g810-led/profile/group_keys
 
 
     # add the Nvidia env file to the config (if needed)
