@@ -39,7 +39,9 @@ nvidia_stage=(
 
 #the main packages
 install_stage=(
-    alacritty 
+    alacritty
+    curl
+    wget
     mako 
     waybar
     swww 
@@ -74,6 +76,8 @@ install_stage=(
     nwg-look-bin
     sddm
     neovim
+    ripgrep
+    g810-led-git
 )
 
 for str in ${myArray[@]}; do
@@ -301,6 +305,11 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
         mkdir -p $DIRPATH &>> $INSTLOG
     done
 
+    # install vim-plug
+    echo -e "$CNT - install vim-plug..."
+    sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
     # link up the config files
     echo -e "$CNT - Setting up the new config..." 
     cp ~/.config/HyprV/hypr/* ~/.config/hypr/
@@ -317,6 +326,9 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     ln -sf ~/.config/HyprV/wlogout/layout ~/.config/wlogout/layout
     ln -sf ~/.config/HyprV/wofi/config ~/.config/wofi/config
     ln -sf ~/.config/HyprV/wofi/style/v4-style-dark.css ~/.config/wofi/style.css
+
+    # Copy Logitech keyboard profile
+    sudo cp -R HyprV/LogitechKB/profile/group_keys /etc/g810-led/profile/group_keys
 
 
     # add the Nvidia env file to the config (if needed)
