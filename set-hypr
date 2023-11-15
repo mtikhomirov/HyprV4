@@ -73,6 +73,7 @@ install_stage=(
     xfce4-settings
     nwg-look-bin
     sddm
+    neovim
 )
 
 for str in ${myArray[@]}; do
@@ -308,6 +309,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     ln -sf ~/.config/HyprV/alacritty/themes/ayu_dark.toml ~/.config/alacritty/themes/ayu_dark.toml
     ln -sf ~/.config/HyprV/alacritty/themes/doom_one.toml ~/.config/alacritty/themes/doom_one.toml
     ln -sf ~/.config/HyprV/alacritty/themes/drakula.toml ~/.config/alacritty/themes/drakula.toml
+    ln -sf ~/.config/HyprV/nvim/nvim.init ~/.config/nvim/nvim.init
     ln -sf ~/.config/HyprV/mako/conf/config-dark ~/.config/mako/config
     ln -sf ~/.config/HyprV/swaylock/config ~/.config/swaylock/config
     ln -sf ~/.config/HyprV/waybar/conf/v4-config.jsonc ~/.config/waybar/config.jsonc
