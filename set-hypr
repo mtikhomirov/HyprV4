@@ -78,6 +78,8 @@ install_stage=(
     neovim
     ripgrep
     g810-led-git
+    nitrogen
+    ranger
 )
 
 for str in ${myArray[@]}; do
