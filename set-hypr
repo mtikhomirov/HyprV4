@@ -39,7 +39,7 @@ nvidia_stage=(
 
 #the main packages
 install_stage=(
-    kitty 
+    alacritty 
     mako 
     waybar
     swww 
@@ -303,7 +303,11 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     # link up the config files
     echo -e "$CNT - Setting up the new config..." 
     cp ~/.config/HyprV/hypr/* ~/.config/hypr/
-    ln -sf ~/.config/HyprV/kitty/kitty.conf ~/.config/kitty/kitty.conf
+    # ln -sf ~/.config/HyprV/kitty/kitty.conf ~/.config/kitty/kitty.conf
+    ln -sf ~/.config/HyprV/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
+    ln -sf ~/.config/HyprV/alacritty/themes/ayu_dark.toml ~/.config/alacritty/themes/ayu_dark.toml
+    ln -sf ~/.config/HyprV/alacritty/themes/doom_one.toml ~/.config/alacritty/themes/doom_one.toml
+    ln -sf ~/.config/HyprV/alacritty/themes/drakula.toml ~/.config/alacritty/themes/drakula.toml
     ln -sf ~/.config/HyprV/mako/conf/config-dark ~/.config/mako/config
     ln -sf ~/.config/HyprV/swaylock/config ~/.config/swaylock/config
     ln -sf ~/.config/HyprV/waybar/conf/v4-config.jsonc ~/.config/waybar/config.jsonc
